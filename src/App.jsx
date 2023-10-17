@@ -3,7 +3,7 @@
 /* eslint-disable react/jsx-no-target-blank */
 import { useState } from 'react';
 
-// create function square [] for call component
+// create function square [] for call component & destructing object
 function Square({ value, onSquareClick }) {
     return (
         <button className="square" onClick={onSquareClick}>
@@ -14,37 +14,45 @@ function Square({ value, onSquareClick }) {
 
 // component parent for square
 export default function Box() {
+    // state & hooks
     const [squares, setSquares] = useState(Array(9).fill(null));
     const [xIsNext, setXIsNext] = useState(true);
 
     function handleClick(i) {
+        // condition square || calculate winner take it function calculateWinner logic
         if (squares[i] || calculateWinner(squares)) return;
 
-        const nextSquare = squares.slice();
+        const nextSquare = squares.slice(); // breaker square to take turns on function slice
+
         // if (xIsNext) {
         //     nextSquare[i] = 'X'; //[X,null,null,null,null,null,null,null,null ]
         // } else {
         //     nextSquare[i] = 'O'; //[O,null,null,null,null,null,null,null,null ]
         // }
 
+        // condition x next or change
         nextSquare[i] = xIsNext ? 'X' : 'O';
+        // condition fullfied
         setSquares(nextSquare);
+        // condition else next
         setXIsNext(!xIsNext);
     }
 
     // condition status win & next player
     const winner = calculateWinner(squares);
-    let status = '';
-    if (winner) {
-        status = 'Winner: ' + winner;
-    } else {
-        status = 'Next Player: ' + (xIsNext ? 'X' : 'O');
-    }
+
+    const status = winner ? 'Winner' + winner : 'Next Player' + (xIsNext ? 'X' : 'O');
+    // if (winner) {
+    //     status = 'Winner: ' + winner;
+    // } else {
+    //     status = 'Next Player: ' + (xIsNext ? 'X' : 'O');
+    // }
 
     return (
         <>
+            {/* status component */}
             <div className="status">{status}</div>
-            {/* components */}
+            {/* board/box components */}
             <div className="box">
                 {/* proops */}
                 <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
