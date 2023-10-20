@@ -17,9 +17,17 @@ body {
     cursor: pointer;
 }
 
-.box {
+.board {
     display: flex;
     flex-wrap: wrap;
     width: 105px;
     height: 105px;
+}
+
+.status {
+    margin-bottom: 10px;
+}
+
+.game {
+    display: flex;
 }
